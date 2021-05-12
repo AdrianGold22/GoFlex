@@ -1,0 +1,30 @@
+.nav-tabs-1 {
+    border-bottom: 1px solid #282828;
+  }
+  .nav-tabs-1 > li {
+    float: left;
+    margin-bottom: -1px;
+    width: 33.33%;
+    text-align: center;
+  }
+  .nav-tabs-1 > li > a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+    color : #777;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .nav-tabs-1 > li > a:hover {
+    /*border-color: transparent transparent #282828;*/
+  }
+  .nav-tabs-1 > li.active > a,
+  .nav-tabs-1 > li.active > a:hover,
+  .nav-tabs-1 > li.active > a:focus {
+    color: #ffffff;
+    /*background-color: #2a9fd6;*/
+    border-bottom: 5px solid #0080ff;
+    border-bottom-color: #0080ff;
+    cursor: default;
+  }
