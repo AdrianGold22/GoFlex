@@ -6,7 +6,7 @@
 				<li><a href="<?php echo base_url();?>index.php?general/privacypolicy">Privacy Policy</a></li>
 				<li><a href="<?php echo base_url();?>index.php?general/refundpolicy">Refund Policy</a></li>
 			</ul>
-			<p>Made with <i class="fa fa-heart"></i> by <a href="http://vmax-studio.com/" rel="nofollow">Vmax-Studio</a>. Contact us at <a href="mailto:vmaxstudio15@gmail.com">vmaxstudio15@gmail.com</a>.</p>
+			<p>href="http://www.drandigital.com" rel="nofollow">Biblioteca Dran Digital</a>.</p>
 		</div>
 	</div>
 </footer>

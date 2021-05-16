@@ -1,25 +1,45 @@
 <!-- TOP LANDING SECTION -->
-<div style="height:93vh;width:100%;background-image: url(<?php echo base_url().'assets/frontend/flixer/images/home_top_banner.jpg';?>)">
+
 	<!-- logo -->
 	<div style="float: left;">
 		<a href="<?php echo base_url();?>index.php?home">
-		<img src="<?php echo base_url();?>/assets/global/logo.png" style="margin: 18px 18px; width: 160px;" />
+		<img src="<?php echo base_url();?>/assets/global/logo.png" style="margin: 18px 18px; width: 150px;" />
 		</a>
 	</div>
 	<div style="float: right;margin: 18px 18px; height: 50px;" class="hidden-xs">
-		<a href="<?php echo base_url();?>index.php?home/signin" class="btn btn-danger">Sign in</a>
+		<a href="<?php echo base_url();?>index.php?home/signin" class="btn btn-primary">Ingresar</a>
 	</div>
 	
 	<!-- promo text visible for large devices -->
-	<div style="font-size: 85px;font-weight: bold;clear: both;padding: 200px 0px 0px 50px;color: #fff;" class="hidden-xs">
+	<!--<div style="font-size: 85px;font-weight: bold;clear: both;padding: 200px 0px 0px 50px;color: #fff;" class="hidden-xs">
 		See what's next.
 		<div style="font-size: 30px; letter-spacing: .2px; color: #fff; font-weight: 400;">
 			WATCH ANYWHERE. CANCEL ANYTIME.
 		</div>
-		<a href="<?php echo base_url();?>index.php?home/signup" class="btn btn-danger btn-lg" >JOIN TODAY</a>
+		<a href="<//?php echo base_url();?>index.php?home/signup" class="btn btn-danger btn-lg" >JOIN TODAY</a>
+	</div> -->
+
+	<?php
+	$featured_movie		=	$this->db->get_where('movie', array('featured'=>1))->row();
+	
+	?>
+<div style="height:85vh;width:100%;background-image: url(<?php echo base_url().'assets/frontend/flixer/images/libros.jpg';?>); background-size:cover;">
+	<div style="font-size: 85px;font-weight: bold;clear: both;padding: 200px 0px 0px 50px;color: #fff;">
+		<?php echo $featured_movie->title;?>
+		<div style="font-size: 30px; letter-spacing: .2px; color: #fff; font-weight: 400;">
+			<?php echo $featured_movie->description_short;?>
+		</div>
+		<a href="<?php echo base_url();?>index.php?browse/playmovie/<?php echo $featured_movie->movie_id;?>" 
+			class="btn btn-primary btn-lg" style="font-size: 18px;"> 
+		<b><i class="fa fa-play"></i> Leer</b>
+		</a>
+		
+	
 	</div>
+</div>
 	
 	<!-- promo text visible for small devices -->
+	<!--
 	<div style="font-size: 45px;font-weight: bold;clear: both;padding: 80px 0px 0px 10px;color: #fff;" class="hidden-lg hidden-sm hidden-md">
 		See what's next.
 		<div style="font-size: 25px; letter-spacing: .2px; color: #fff; font-weight: 400;">
@@ -29,9 +49,36 @@
 		<br>
 		<a href="<?php echo base_url();?>index.php?home/signin" class="btn btn-danger btn-lg" >SIGN IN</a>
 	</div>
-</div>
+</div>-->
 <!-- MIDDLE TAB SECTION -->
+
+
+<?php 
+	$genres		=	$this->crud_model->get_genres();
+	foreach ($genres as $row):
+	?>
+<div class="row" style="margin:20px 60px;">
+	<h4><?php echo $row['name'];?></h4>
+	<div class="content">
+		<div class="grid">
+			<?php 
+				$movies	= $this->crud_model->get_movies($row['genre_id'] , 5, 0);
+				foreach ($movies as $row)
+				{
+					$title	=	$row['title'];
+					$link	=	base_url().'index.php?browse/playmovie/'.$row['movie_id'];
+					$thumb	=	$this->crud_model->get_thumb_url('movie' , $row['movie_id']);
+					include 'thumb.php';
+				}
+				?>
+		</div>
+	</div>
+</div>
+<?php endforeach;?>
 <div class="container">
+
+    
+    <!--
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="bs-component">
@@ -115,73 +162,74 @@
 								<a href="<?php echo base_url();?>index.php?home/signup" class="btn btn-danger btn-lg" >JOIN TODAY</a>
 							</div>
 						</div>
-						<!-- price table -->
+						
+
 						<table class="table table-striped table-hover" style="color: #999;">
 							<tbody>
 								<tr>
 									<td></td>
-									<?php
+									<//?php
 										$plans = $this->crud_model->get_active_plans();
 										foreach ($plans as $row):
 										?>
 									<td align="center">
 										<h5 style="text-transform: uppercase;"><?php echo $row['name'];?></h5>
 									</td>
-									<?php endforeach;?>
+									<//?php endforeach;?>
 								</tr>
 								<tr>
 									<td>Monthly price</td>
-									<?php
+									<//?php
 										$plans = $this->crud_model->get_active_plans();
 										foreach ($plans as $row):
 										?>
-									<td align="center">USD <?php echo $row['price'];?></td>
-									<?php endforeach;?>
+									<td align="center">USD <//?php echo $row['price'];?></td>
+									<//?php endforeach;?>
 								</tr>
 								<tr>
 									<td>Screens you can watch on at the same time</td>
-									<?php
+									<//?php
 										$plans = $this->crud_model->get_active_plans();
 										foreach ($plans as $row):
 										?>
-									<td align="center"><?php echo $row['screens'];?></td>
-									<?php endforeach;?>
+									<td align="center"><//?php echo $row['screens'];?></td>
+									<//?php endforeach;?>
 								</tr>
 								<tr>
 									<td>Watch on your laptop, TV, phone and tablet</td>
-									<?php
+									<//?php
 										$plans = $this->crud_model->get_active_plans();
 										foreach ($plans as $row):
 										?>
 									<td align="center"><i class="fa fa-check" aria-hidden="true"></i></td>
-									<?php endforeach;?>
+									<//?php endforeach;?>
 								</tr>
 								<tr>
 									<td>HD available</td>
-									<?php
+									<//?php
 										$plans = $this->crud_model->get_active_plans();
 										foreach ($plans as $row):
 										?>
 									<td align="center"><i class="fa fa-check" aria-hidden="true"></i></td>
-									<?php endforeach;?>
+									<//?php endforeach;?>
 								</tr>
 								<tr>
 									<td>Unlimited movies and TV shows</td>
-									<?php
+									<//?php
 										$plans = $this->crud_model->get_active_plans();
 										foreach ($plans as $row):
 										?>
 									<td align="center"><i class="fa fa-check" aria-hidden="true"></i></td>
-									<?php endforeach;?>
+									<//?php endforeach;?>
 								</tr>
 								<tr>
 									<td>Cancel anytime</td>
-									<?php
+									<//?php
 										$plans = $this->crud_model->get_active_plans();
 										foreach ($plans as $row):
 										?>
 									<td align="center"><i class="fa fa-check" aria-hidden="true"></i></td>
-									<?php endforeach;?>
+									<//?php endforeach;?>
 								</tr>
 							</tbody>
 						</table>
@@ -190,6 +238,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>-->
 	<?php include 'footer.php';?>
-</div>

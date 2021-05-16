@@ -203,6 +203,8 @@ foreach ($movie_details as $row) :
 					}
 				});
 			</script>
+
+			
 			<div class="col-lg-4">
 				<!-- ADD OR DELETE FROM PLAYLIST -->
 				<span id="mylist_button_holder">

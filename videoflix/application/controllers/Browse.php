@@ -9,7 +9,7 @@ class Browse extends CI_Controller {
 		parent::__construct();
 		$this->load->database();
 		$this->load->library('session');
-		$this->login_check();
+		//$this->login_check();
 
 		$called_function	=	$this->router->fetch_method();
 		
@@ -161,8 +161,9 @@ class Browse extends CI_Controller {
 		$this->load->view('frontend/index', $page_data);
 	}
 	
-	function playseries($series_id = '', $season_id = '')
+	function playseries($series_id = '', $season_id = '',$episode_id = "")
 	{
+		
 		if ($season_id == '')
 		{
         	$seasons	=	$this->db->get_where('season', array('series_id'=>$series_id))->result_array();
@@ -173,13 +174,19 @@ class Browse extends CI_Controller {
 			}
 			$page_data['season_id']		=	$first_season_id;
 		}
-		else 
+		else
 			$page_data['season_id']		=	$season_id;
-		
+
+		if ($episode_id == "") {
+			$episodes	=	$this->db->get_where('episode', array('season_id'=>$page_data['season_id']))->row_array();
+			$page_data['episode_id']		= $episodes['episode_id'];
+		}else
+			$page_data['episode_id']		= $episode_id;
+
 		$page_data['series_id']		=	$series_id;
 		$page_data['page_name']		=	'playseries';
 		$page_data['page_title']	=	'Watch Tv Series';
-		$page_data['series_id']		=	$series_id;
+		//$page_data['series_id']		=	$series_id;
 		$this->load->view('frontend/index', $page_data);
 	}
 	

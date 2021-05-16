@@ -34,35 +34,100 @@
 	<div class="container" style="padding-top:100px; text-align: center;">
 		<div class="row">
 			<div class="col-lg-12">
-				<script type="text/javascript" src="https://jwpsrv.com/library/4+R8PsscEeO69iIACooLPQ.js"></script>
-				<div id="video_player_div"><?php echo $row['title'];?></div>
-				<script>
-					jwplayer("video_player_div").setup({
-						playlist: [
+			<style>
+						.intrinsic-container {
+							position: relative;
+							height: 0;
+							overflow: hidden;
+						}
+
+						/* 16x9 Aspect Ratio */
+						.intrinsic-container-16x9 {
+							padding-bottom: 56.25%;
+						}
+
+						/* 4x3 Aspect Ratio */
+						.intrinsic-container-4x3 {
+							padding-bottom: 75%;
+						}
+
+						.intrinsic-container iframe {
+							position: absolute;
+							top: 0;
+							left: 0;
+							width: 100%;
+							height: 100%;
+						}
+					</style>
+
+					<script>
+					function get_cap(cap)
+					{  cont=0;
+					   cont++;
+					   if(cont==0){
+						   cap=1;
+					   }	
 						
-						<?php
+                       return cap;
+                       
+					}
+					</script>
+					<?php
+					    
 						$episodes	=	$this->crud_model->get_episodes_of_season($season_id);
-						foreach ($episodes as $row2):
+						$row2=$episodes[$episode_id-1];
 						?>
-							{
-								image	:	"<?php echo $this->crud_model->get_thumb_url('episode' , $row2['episode_id']);?>",
-						  		file	:	"<?php echo $row2['url'];?>", 
-								title	:	"<?php echo $row2['title'];?>"
-							},
-						<?php endforeach;?>
-						],
+
+					<div class="bs-component">
+						<ul class="nav nav-tabs-1">
+							<li class="active" style="width:33%;">
+								<a title="MEGA" href="#vid1" data-toggle="tab">
+								<?php echo json_decode($row2['url'])[0];?>
+								</a>
+							</li>
+							<li style="width:33%;">
+								<a title= "Yourupload" href="#vid2" data-toggle="tab">
+								<?php echo json_decode($row2['url'])[2];?>
+								</a>
+							</li>
+							<li style="width:33%;">
+								<a title= "MP4" href="#vid3" data-toggle="tab">
+								<?php echo json_decode($row2['url'])[4];?>
+								</a>
+							</li>
+						</ul>
+						<div id="myTabContent" class="tab-content">
+							<div class="tab-pane active in" id="vid1">
+								<div class="intrinsic-container intrinsic-container-16x9">
+									<iframe src="<?php echo json_decode($row2['url'])[1]; ?>" allowfullscreen style="border:0px; width:100%; height:100%;"></iframe>
+								
+								</div>
+							</div>
+							<div class="tab-pane" id="vid2">
+								<div class="intrinsic-container intrinsic-container-16x9">
+									<iframe src="<?php echo json_decode($row2['url'])[3]; ?>" allowfullscreen style="border:0px; width:100%; height:100%;"></iframe>
+								</div>
+							</div>
+							<div class="tab-pane" id="vid3">
+								<div class="intrinsic-container intrinsic-container-16x9">
+									<iframe src="<?php echo json_decode($row2['url'])[5]; ?>" allowfullscreen style="border:0px; width:100%; height:100%;"></iframe>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+				
+   
+
+
+				
+					
 						
-						"width": "100%",
-						aspectratio: "16:9",
-						listbar: {
-						  position: 'right',
-						  size: 260
-						},
-					  });
+						
 					
 					
 					
-				</script>
+				
 			</div>
 		</div>
 	</div>
@@ -222,7 +287,7 @@
 								foreach ($episodes as $row2):
 								?>
 							<div class="col-md-3">
-								<a href="#" onclick="jwplayer().playlistItem(<?php echo $counter++;?>)">
+								<a href="<?php echo site_url('index.php?browse/playseries/'.$series_id.'/'.$season_id.'/'.$row2['episode_id']) ?>">
 								<img src="<?php echo $this->crud_model->get_thumb_url('episode' , $row2['episode_id']);?>" 
 									style="height: 150px; margin-top:10px;" /></a>
 								<br>
